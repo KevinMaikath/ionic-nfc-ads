@@ -1,5 +1,7 @@
 {
   "name": "ionic-nfc-ads",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

@@ -1,0 +1,8 @@
+{
+  "appId": "es.sevinel.nfcAds",
+  "appName": "ionic-nfc-ads",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

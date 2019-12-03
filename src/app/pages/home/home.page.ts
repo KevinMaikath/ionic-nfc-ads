@@ -29,7 +29,10 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.info = 'No info yet';
+  }
 
+
+  onDoneClicked() {
     this.setupNFC();
   }
 
