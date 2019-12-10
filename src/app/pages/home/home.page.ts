@@ -3,7 +3,7 @@ import {DatabaseService} from '../../services/database.service';
 import {Observable, Subscription} from 'rxjs';
 import {NdefEvent} from '@ionic-native/nfc';
 import {NFC} from '@ionic-native/nfc/ngx';
-import {AlertController, LoadingController} from '@ionic/angular';
+import {AlertController, LoadingController, Platform} from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -21,19 +21,36 @@ export class HomePage implements OnInit {
   ndefEventObservable: Observable<NdefEvent>;
   nfcSubscription: Subscription;
 
+  iOS = false;
+
   constructor(private db: DatabaseService,
               private alertCtrl: AlertController,
               private loadingCtrl: LoadingController,
-              private nfc: NFC) {
+              private nfc: NFC,
+              private platform: Platform) {
   }
 
   ngOnInit(): void {
     this.info = 'No info yet';
+    if (this.platform.is('ios')) {
+      this.iOS = true;
+    }
   }
 
 
   onDoneClicked() {
-    this.setupNFC();
+
+    if (this.iOS) {
+      this.nfc.beginSession(
+        () => {
+          this.setupNFC();
+        },
+        () => {
+          this.info = 'BeginSession Failed';
+        });
+    } else {
+      this.setupNFC();
+    }
   }
 
   async setupNFC() {
@@ -90,8 +107,8 @@ export class HomePage implements OnInit {
     let payload = this.nfc.bytesToString(event.tag.ndefMessage[4].payload);
     payload = payload.substring(3);
 
-    let restaurantName = this.nfc.bytesToString(event.tag.ndefMessage[3].payload);
-    restaurantName = restaurantName.substring(3);
+    // let restaurantName = this.nfc.bytesToString(event.tag.ndefMessage[3].payload);
+    // restaurantName = restaurantName.substring(3);
 
     this.info = payload;
 
@@ -116,8 +133,6 @@ export class HomePage implements OnInit {
     //       alertEl.present();
     //     });
     //   });
-
-    // this.nfcSubscription.unsubscribe();
   }
 
   private async setReadNfcAlert() {
