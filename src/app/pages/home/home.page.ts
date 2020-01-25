@@ -96,30 +96,6 @@ export class HomePage implements OnInit {
       .then(link => {
         this.iab.create(link);
       });
-
-    // this.router.navigate([link]);
-
-    // this.shoppingService.setOrder(payload)
-    //   .then(() => {
-    //     this.alertCtrl.create({
-    //       message: 'Your order has been successfully submitted for: ' + restaurantName,
-    //       buttons: [
-    //         {text: 'Okay'}
-    //       ]
-    //     }).then(alertEl => {
-    //       alertEl.present();
-    //     });
-    //   })
-    //   .catch(() => {
-    //     this.alertCtrl.create({
-    //       message: 'There has been an error while submitting your order, please retry',
-    //       buttons: [
-    //         {text: 'Okay'}
-    //       ]
-    //     }).then(alertEl => {
-    //       alertEl.present();
-    //     });
-    //   });
   }
 
   private async setReadNfcAlert() {
